@@ -1,5 +1,5 @@
 {
-  "name": "va/cutlet-helper",
+  "name": "dizatech/cutlet-helper",
   "description": "A package to use helper functions and Iranian Validator in laravel apps.",
   "keywords": [
     "laravel",
