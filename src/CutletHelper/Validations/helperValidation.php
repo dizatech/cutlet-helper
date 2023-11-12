@@ -193,7 +193,28 @@ Validator::extend('debit_card', function ($attribute, $card_number, $parameters,
  * @return bool
  */
 Validator::extend('postal_code', function ($attribute, $code, $parameters, $validator) {
-    $status = (bool)preg_match("/\b(?!(\d){3})[13-9]{4}[1346-9][013-9]{5}\b/", $code);
+    if (empty($code)|| ! preg_match('/^[0-9]{10}$/', $code)) {
+        return false;
+    }
+
+    $status = true;
+    $invalidCodes = [
+        '0000000000',
+        '1111111111',
+        '2222222222',
+        '3333333333',
+        '4444444444',
+        '5555555555',
+        '6666666666',
+        '7777777777',
+        '8888888888',
+        '9999999999'
+    ];
+
+    // Check for invalid codes
+    if ($code < 1 || in_array($code, $invalidCodes)) {
+        $status = false;
+    }
 
     return $status;
 }, config('cutlet-helper.postal_code'));
